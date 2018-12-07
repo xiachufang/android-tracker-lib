@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by michael on 15/9/25.
  */
 public class StaticRequest<T> extends Request<T> {
-
+    public static final int METHOD_GET = 0;
     private Map<String, String> mHeaders;
     private Map<String, Object> mRequestParams;
     private IHttpManager.Callback httpCallback;

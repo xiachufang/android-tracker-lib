@@ -23,7 +23,7 @@ public class GlobalParams {
     /**
      * 上传间隔事件 分钟, 默认1分钟
      */
-    public static double PUSH_CUT_DATE = 1;
+    public static double PUSH_CUT_TIMER_INTERVAL = 1;
 
 
     //是否是开发模式

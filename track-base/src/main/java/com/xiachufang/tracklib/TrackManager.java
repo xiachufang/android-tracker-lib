@@ -6,6 +6,8 @@ import android.os.Process;
 import android.util.Log;
 
 import com.xiachufang.tracklib.exception.EventException;
+import com.xiachufang.tracklib.model.ISendControl;
+import com.xiachufang.tracklib.model.SendControler;
 import com.xiachufang.tracklib.net.IHeaderConfig;
 import com.xiachufang.tracklib.net.IHttpManager;
 import com.xiachufang.tracklib.services.TrackPushService;
@@ -25,9 +27,11 @@ public final class TrackManager {
 
     private static IHttpManager httpManager;
 
+    private static ISendControl iSendControl;
+
     private static IHeaderConfig headerConfig;
 
-    public static final int METHOD_GET = 0;
+
     private static boolean isDebug;
 
     /**
@@ -111,11 +115,20 @@ public final class TrackManager {
         httpManager = configBuilder.httpManager;
         isDebug = configBuilder.DEVELOP_MODE;
         headerConfig = configBuilder.headConfig;
+        if (configBuilder.iSendControl==null){
+            iSendControl = new SendControler();
+        }else {
+            iSendControl = configBuilder.iSendControl;
+        }
         init(context,application,isDebug);
     }
 
     public static IHeaderConfig getHeadrConfig() {
         return headerConfig;
+    }
+
+    public static ISendControl getSendControler() {
+        return iSendControl;
     }
 
 
@@ -135,11 +148,13 @@ public final class TrackManager {
 
         private int PUSH_CUT_NUMBER = GlobalParams.PUSH_CUT_NUMBER;
 
-        private double PUSH_CUT_DATE = GlobalParams.PUSH_CUT_DATE;
+        private double PUSH_CUT_DATE = GlobalParams.PUSH_CUT_TIMER_INTERVAL;
 
         private Application application;
 
         private IHttpManager httpManager;
+
+        private ISendControl iSendControl;
 
         public Config(Context applicationContext) {
             this.applicationContext = applicationContext;
@@ -159,6 +174,12 @@ public final class TrackManager {
          */
         public Config setDebug(boolean isDebug) {
             DEVELOP_MODE = isDebug;
+            return this;
+        }
+
+
+        public Config setiSendControl(ISendControl iSendControl) {
+            this.iSendControl = iSendControl;
             return this;
         }
 
@@ -210,8 +231,7 @@ public final class TrackManager {
         public Config init() {
 
             GlobalParams.PUSH_CUT_NUMBER = PUSH_CUT_NUMBER;
-            GlobalParams.PUSH_CUT_DATE = PUSH_CUT_DATE;
-            GlobalParams.INNER_SEND = INNER_SEND;
+            GlobalParams.PUSH_CUT_TIMER_INTERVAL = PUSH_CUT_DATE;
             return this;
         }
 

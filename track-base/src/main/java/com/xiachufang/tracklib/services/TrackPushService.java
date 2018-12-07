@@ -2,13 +2,17 @@ package com.xiachufang.tracklib.services;
 
 import com.xiachufang.tracklib.TrackManager;
 import com.xiachufang.tracklib.task.TrackPushTask;
+import com.xiachufang.tracklib.util.GlobalParams;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.xiachufang.tracklib.util.GlobalParams.SWITCH_ON;
 
@@ -30,16 +34,17 @@ public class TrackPushService {
 
     private void init() {
 
-        Observable<Long> interval = Observable.interval(0, 60, TimeUnit.SECONDS);
+        Observable<Long> interval = Observable.interval(0, (long) GlobalParams.PUSH_CUT_TIMER_INTERVAL, TimeUnit.MINUTES);
         final Consumer<Long> subscriber = new Consumer<Long>() {
             @Override
-            public void accept(Long aLong) throws Exception {
+            public void accept(Long aLong){
                 if (SWITCH_ON){
                     TrackPushTask.pushEvent();
                 }
             }
         };
-        subscribe = interval.subscribe(subscriber);
+
+        subscribe = interval.subscribeOn(Schedulers.newThread()).subscribe(subscriber);
 
     }
 
@@ -49,12 +54,15 @@ public class TrackPushService {
      */
     public void excutePushEvent() {
 
-        TrackPoolExecutor.getInstance().execute(new FutureTask<Object>(new Runnable() {
+        Observable.fromCallable(new Callable<Object>() {
             @Override
-            public void run() {
+            public Object call() {
                 TrackPushTask.pushEvent();
+                return new Object();
             }
-        }, null));
+        }).subscribeOn(Schedulers.newThread()).subscribe();
+
+
     }
 
 
@@ -88,7 +96,7 @@ public class TrackPushService {
     public static TrackPushService getInstance() {
 
         if (pushService == null) {
-            synchronized (TrackManager.class) {
+            synchronized (TrackPushService.class) {
                 if (pushService == null) {
                     pushService = new TrackPushService();
                 }
