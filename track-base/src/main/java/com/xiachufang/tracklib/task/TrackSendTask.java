@@ -18,7 +18,7 @@ import java.util.List;
  * path com.xiachufang.tracklib.controler
  * description: 发送的任务
  */
-public class TrackPushTask {
+public class TrackSendTask {
 
 
     //校验数据库最新数据时间戳

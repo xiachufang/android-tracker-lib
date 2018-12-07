@@ -1,15 +1,12 @@
 package com.xiachufang.tracklib.services;
 
-import com.xiachufang.tracklib.TrackManager;
-import com.xiachufang.tracklib.task.TrackPushTask;
+import com.xiachufang.tracklib.task.TrackSendTask;
 import com.xiachufang.tracklib.util.GlobalParams;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -39,7 +36,7 @@ public class TrackPushService {
             @Override
             public void accept(Long aLong){
                 if (SWITCH_ON){
-                    TrackPushTask.pushEvent();
+                    TrackSendTask.pushEvent();
                 }
             }
         };
@@ -57,7 +54,7 @@ public class TrackPushService {
         Observable.fromCallable(new Callable<Object>() {
             @Override
             public Object call() {
-                TrackPushTask.pushEvent();
+                TrackSendTask.pushEvent();
                 return new Object();
             }
         }).subscribeOn(Schedulers.newThread()).subscribe();

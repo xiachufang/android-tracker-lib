@@ -114,7 +114,7 @@ public class TrackHttpManager {
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
 
         Log.e("requestUrlis", trackingUrl);
-        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, "http://123.207.150.253/ygcms/app/update.json", trackParamsMap, callback, id);
+        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap, callback, id);
         request.setShouldCache(false);
         if (this.mTimeOutMilliSecs >= 3) {
             request.setRetryPolicy(new DefaultRetryPolicy(this.mTimeOutMilliSecs, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
