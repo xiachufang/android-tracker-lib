@@ -1,5 +1,7 @@
 package com.xiachufang.tracklib.net;
 
+import android.net.Uri;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -17,6 +19,7 @@ import com.xiachufang.tracklib.util.Logs;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -47,11 +50,12 @@ public class TrackHttpManager {
         public void onResponse(int id) {
             TrackDBManager.deleteEventByDataId(TrackManager.getContext(), id);
             TrackManager.getSendControler().deCrease();
+            Log.e("currentthread", "请求成功");
             //是否存在被拒绝的任务，立即读取数据
             if (requestQueue.getCurrentQueueSize() == 0 && waitNum.get() > 0) {
                 waitNum.decrementAndGet();
                 TrackPushService.getInstance().excutePushEvent();
-                Log.e("currentthread", "曾有新数据被拒绝，重新入队");
+
             }
             Logs.d("refresh");
         }
@@ -66,6 +70,7 @@ public class TrackHttpManager {
                 Log.e("currentthread", "曾有新数据被拒绝，重新入队");
             }
             Logs.d("refresh");
+            Log.e("currentthread", "请求失败");
         }
     };
 
@@ -101,19 +106,40 @@ public class TrackHttpManager {
     }
 
     private StaticRequest createRequest(TrackData trackData, IHttpManager.Callback callback) {
-        Gson gson = new Gson();
-        HashMap<String,String> trackMap = gson.fromJson(trackData.getTrackData(),HashMap.class);
-        String trackUrl = trackMap.get(GlobalParams.URL_KEY);
-        String trackParamsMap = trackMap.get(GlobalParams.PARAMS_MAP_KEY);
-        HashMap<String,String> requestMap = gson.fromJson(trackParamsMap,HashMap.class);
-        return buildRequest(trackUrl, requestMap, trackData.getId(), callback);
+        String trackingUrl = trackData.getTrackData();
+        Uri androidUri = Uri.parse(trackingUrl);
+        String scheme = androidUri.getScheme();
+        String host = androidUri.getHost();
+        List<String> pathSegments = androidUri.getPathSegments();
+        StringBuilder pathBuilder = new StringBuilder();
+        if (pathSegments != null) {
+            for (int i = 0; i < pathSegments.size(); i++) {
+                pathBuilder.append(pathSegments.get(i));
+                if (i < pathSegments.size() - 1) {
+                    pathBuilder.append('/');
+                }
+            }
+        }
+        String path = pathBuilder.toString();
+        Set<String> queryParameterNames = androidUri.getQueryParameterNames();
+        Map<String, Object> parameterMap = new ArrayMap<>();
+        if (queryParameterNames != null && queryParameterNames.size() > 0) {
+            for (String queryParameterName : queryParameterNames) {
+                String parameterValue = androidUri.getQueryParameter(queryParameterName);
+                if (parameterValue == null) {
+                    continue;
+                }
+                parameterMap.put(queryParameterName, parameterValue);
+            }
+        }
+        return buildRequest(buildUrl(scheme,host,path), parameterMap, trackData.getId(), callback);
     }
 
     //TODO 发布时要换正确的请求地址 trackingUrl
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
 
         Log.e("requestUrlis", trackingUrl);
-        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap, callback, id);
+        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, "http://123.207.150.253/ygcms/app/update.json", trackParamsMap, callback, id);
         request.setShouldCache(false);
         if (this.mTimeOutMilliSecs >= 3) {
             request.setRetryPolicy(new DefaultRetryPolicy(this.mTimeOutMilliSecs, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -130,5 +156,13 @@ public class TrackHttpManager {
 
     public synchronized void clearRequetWaitNum() {
         waitNum.set(0);
+    }
+    private String buildUrl(String scheme, String host, String relatedUrl) {
+        Uri targetUri = new Uri.Builder()
+                .scheme(scheme)
+                .encodedAuthority(host)
+                .encodedPath(relatedUrl)
+                .build();
+        return targetUri.toString();
     }
 }

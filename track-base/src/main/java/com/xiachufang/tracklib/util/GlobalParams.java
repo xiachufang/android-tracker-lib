@@ -9,8 +9,6 @@ package com.xiachufang.tracklib.util;
 public class GlobalParams {
 
     public static final String TAG = "reportTrack";
-    public static final String URL_KEY = "URL_KEY";
-    public static final String PARAMS_MAP_KEY = "PARAMS_MAP_KEY";
 
 
     //是否启用内部发送逻辑，默认开启

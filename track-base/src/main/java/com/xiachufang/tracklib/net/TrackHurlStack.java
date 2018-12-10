@@ -26,7 +26,6 @@ public class TrackHurlStack extends HurlStack {
             HttpResponse httpResponse = httpManager.doGet((StaticRequest) request);
             return httpResponse;
         }else {
-
             return super.executeRequest(request, additionalHeaders);
         }
     }
