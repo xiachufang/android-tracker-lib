@@ -134,7 +134,7 @@ public class TrackHttpManager {
     }
 
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
-        Log.e("requestUrlis", trackingUrl);
+        Log.e("requestTrackUrl", trackingUrl+"---"+trackParamsMap.size());
         StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap, callback, id);
         request.setShouldCache(false);
         if (this.mTimeOutMilliSecs >= 3) {
