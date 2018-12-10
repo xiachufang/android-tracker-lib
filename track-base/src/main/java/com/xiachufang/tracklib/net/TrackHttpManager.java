@@ -107,9 +107,8 @@ public class TrackHttpManager {
 
     private StaticRequest createRequest(TrackData trackData, IHttpManager.Callback callback) {
         String trackingUrl = trackData.getTrackData();
+
         Uri androidUri = Uri.parse(trackingUrl);
-        String scheme = androidUri.getScheme();
-        String host = androidUri.getHost();
         List<String> pathSegments = androidUri.getPathSegments();
         StringBuilder pathBuilder = new StringBuilder();
         if (pathSegments != null) {
@@ -120,7 +119,6 @@ public class TrackHttpManager {
                 }
             }
         }
-        String path = pathBuilder.toString();
         Set<String> queryParameterNames = androidUri.getQueryParameterNames();
         Map<String, Object> parameterMap = new ArrayMap<>();
         if (queryParameterNames != null && queryParameterNames.size() > 0) {
@@ -132,14 +130,12 @@ public class TrackHttpManager {
                 parameterMap.put(queryParameterName, parameterValue);
             }
         }
-        return buildRequest(buildUrl(scheme,host,path), parameterMap, trackData.getId(), callback);
+        return buildRequest(trackData.getTrackData(), parameterMap, trackData.getId(), callback);
     }
 
-    //TODO 发布时要换正确的请求地址 trackingUrl
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
-
         Log.e("requestUrlis", trackingUrl);
-        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, "http://123.207.150.253/ygcms/app/update.json", trackParamsMap, callback, id);
+        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap, callback, id);
         request.setShouldCache(false);
         if (this.mTimeOutMilliSecs >= 3) {
             request.setRetryPolicy(new DefaultRetryPolicy(this.mTimeOutMilliSecs, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
