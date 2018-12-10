@@ -1,8 +1,14 @@
 package com.xiachufang.tracklib.services;
 
+import android.util.Log;
+
+import com.xiachufang.tracklib.TrackManager;
+import com.xiachufang.tracklib.db.TrackData;
+import com.xiachufang.tracklib.db.helper.AppDatabase;
 import com.xiachufang.tracklib.task.TrackSendTask;
 import com.xiachufang.tracklib.util.GlobalParams;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -60,6 +66,17 @@ public class TrackPushService {
         }).subscribeOn(Schedulers.newThread()).subscribe();
 
 
+        //debug
+        if (GlobalParams.DEVELOP_MODE){
+            List<TrackData> trackData = AppDatabase.getInstance(TrackManager.getContext()).trackDao().getAll();
+            StringBuffer buffer = new StringBuffer();
+            if (trackData!=null&&trackData.size()>0){
+                for (int i = 0; i < trackData.size(); i++) {
+                    buffer.append(trackData.get(i).getTrackData()).append("-timestamp-").append(trackData.get(i).getTimeStamp()).append("\n");
+                }
+            }
+            Log.e("debug-statistic",buffer.toString());
+        }
     }
 
 

@@ -46,20 +46,19 @@ public class TrackHttpManager {
         @Override
         public void onResponse(int id) {
             TrackDBManager.deleteEventByDataId(TrackManager.getContext(), id);
-            EventDecorator.decreaseNum();
+            TrackManager.getSendControler().deCrease();
             //是否存在被拒绝的任务，立即读取数据
             if (requestQueue.getCurrentQueueSize() == 0 && waitNum.get() > 0) {
                 waitNum.decrementAndGet();
                 TrackPushService.getInstance().excutePushEvent();
                 Log.e("currentthread", "曾有新数据被拒绝，重新入队");
             }
+            Logs.d("refresh");
         }
 
         @Override
         public void onError(int id) {
-            Log.e("trackurlstack", " request callback fail" + id);
-            EventDecorator.decreaseNum();
-
+            TrackManager.getSendControler().deCrease();
             //是否存在被拒绝的任务，立即读取数据
             if (requestQueue.getCurrentQueueSize() == 0 && waitNum.get() > 0) {
                 waitNum.decrementAndGet();
