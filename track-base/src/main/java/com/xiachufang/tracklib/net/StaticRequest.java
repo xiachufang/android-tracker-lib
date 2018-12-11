@@ -1,6 +1,7 @@
 package com.xiachufang.tracklib.net;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -9,7 +10,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
+import com.xiachufang.tracklib.TrackManager;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -24,6 +27,7 @@ public class StaticRequest<T> extends Request<T> {
     public static final int METHOD_GET = 0;
     private int id;
     private final IHttpManager.Callback listener;
+    private Map<String, String> mHeaders;
     private final Map<String, String> params;
     public StaticRequest(int method, String url, Map trackParamsMap, int id, IHttpManager.Callback listener) {
         super(method, url, null);
@@ -51,6 +55,22 @@ public class StaticRequest<T> extends Request<T> {
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
         return params != null ? params : super.getParams();
+    }
+
+    public void addHeader(String name, String value) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(value)) {
+            return;
+        }
+        Map<String, String> headers = getHeaders();
+        headers.put(name, value);
+    }
+    @Override
+    public Map<String, String> getHeaders() {
+        if (mHeaders == null) {
+            mHeaders = new HashMap<String, String>();
+            mHeaders.put("User-Agent",TrackManager.getHeadrConfig().getUserAgent());
+        }
+        return mHeaders;
     }
 
     @Override

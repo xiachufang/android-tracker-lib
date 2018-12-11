@@ -11,4 +11,5 @@ public interface IHeaderConfig {
 
     StaticRequest getHeaders(StaticRequest request);
 
+    String getUserAgent();
 }
