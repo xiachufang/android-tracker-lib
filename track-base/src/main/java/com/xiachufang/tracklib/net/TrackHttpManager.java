@@ -6,12 +6,16 @@ import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.xiachufang.tracklib.TrackManager;
 import com.xiachufang.tracklib.db.TrackDBManager;
 import com.xiachufang.tracklib.db.TrackData;
 import com.xiachufang.tracklib.model.EventDecorator;
+import com.xiachufang.tracklib.model.ResultBean;
 import com.xiachufang.tracklib.services.TrackPushService;
 import com.xiachufang.tracklib.util.GlobalParams;
 import com.xiachufang.tracklib.util.Logs;
@@ -95,11 +99,14 @@ public class TrackHttpManager {
      * @param list
      */
     public void send(List<TrackData> list) {
-        for (TrackData trackData : list) {
+        for (final TrackData trackData : list) {
             StaticRequest request = createRequest(trackData, callback);
             requestQueue.add(request);
         }
     }
+
+
+
 
     public RequestQueue getRequestQueue() {
         return requestQueue;
@@ -130,16 +137,13 @@ public class TrackHttpManager {
                 parameterMap.put(queryParameterName, parameterValue);
             }
         }
-        return buildRequest(trackData.getTrackData(), parameterMap, trackData.getId(), callback);
+        return buildRequest(trackingUrl, parameterMap, trackData.getId(), callback);
     }
 
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
         Log.e("requestTrackUrl", trackingUrl+"---"+trackParamsMap.size());
-        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap, callback, id);
+        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap,id, callback);
         request.setShouldCache(false);
-        if (this.mTimeOutMilliSecs >= 3) {
-            request.setRetryPolicy(new DefaultRetryPolicy(this.mTimeOutMilliSecs, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        }
         if (TrackManager.getHeadrConfig() != null) {
             return TrackManager.getHeadrConfig().getHeaders(request);
         }
