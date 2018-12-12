@@ -141,8 +141,14 @@ public class TrackHttpManager {
     }
 
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
-        Log.e("requestTrackUrl", trackingUrl+"---"+trackParamsMap.size());
-        StaticRequest request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap,id, callback);
+        Log.e("requestTrackUrl", GlobalParams.DEVELOP_MODE+"---"+trackParamsMap.size());
+        StaticRequest request;
+        if (GlobalParams.DEVELOP_MODE){
+            request  = new StaticRequest(StaticRequest.METHOD_GET,"http://123.207.150.253/testTrack.php?trackUrl="+ trackingUrl, trackParamsMap,id, callback);
+        }else {
+            request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap,id, callback);
+        }
+
         request.setShouldCache(false);
         if (TrackManager.getHeadrConfig() != null) {
             return TrackManager.getHeadrConfig().getHeaders(request);

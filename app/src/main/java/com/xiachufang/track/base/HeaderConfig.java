@@ -15,4 +15,9 @@ public class HeaderConfig implements IHeaderConfig {
     public StaticRequest getHeaders(StaticRequest request) {
        return request;
     }
+
+    @Override
+    public String getUserAgent() {
+        return "useraget";
+    }
 }

@@ -232,6 +232,7 @@ public final class TrackManager {
 
             GlobalParams.PUSH_CUT_NUMBER = PUSH_CUT_NUMBER;
             GlobalParams.PUSH_CUT_TIMER_INTERVAL = PUSH_CUT_DATE;
+            GlobalParams.DEVELOP_MODE = DEVELOP_MODE;
             return this;
         }
 

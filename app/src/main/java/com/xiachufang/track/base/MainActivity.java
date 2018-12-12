@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addData(View view) {
         for (int i = 0; i < 40; i++) {
-            Track.event("https://m.baidu.com/?test=test&from=844b&vit=fps");
+            Track.event("http://123.207.150.253/testTrack.php?trackUrl=http://www.tessfdst4.html");
         }
     }
 }

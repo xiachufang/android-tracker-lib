@@ -2,6 +2,7 @@ package com.xiachufang.tracklib.net;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -85,6 +86,7 @@ public class StaticRequest<T> extends Request<T> {
     @Override
     public void deliverError(VolleyError error) {
         super.deliverError(error);
+        Log.e("ddddaass",error.getStackTrace()+"---"+error.getMessage()+"---"+error.getCause());
         try {
             listener.onError(id);
         }catch (Exception e){
