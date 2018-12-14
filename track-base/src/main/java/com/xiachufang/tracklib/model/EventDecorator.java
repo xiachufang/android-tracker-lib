@@ -25,17 +25,6 @@ public class EventDecorator {
         return System.currentTimeMillis();
     }
 
-    public static synchronized void addEventNum() {
-        TrackManager.getSendControler().inCrease();
-    }
-
-    /**
-     * 目前是逐条操作，所以执行减1
-     */
-    public static synchronized void decreaseNum() {
-        TrackManager.getSendControler().deCrease();
-    }
-
     public static synchronized void clearNum() {
         TrackManager.getSendControler().reset();
     }
@@ -60,7 +49,7 @@ public class EventDecorator {
      */
     public static void pushEventByNum() {
         TrackManager.getSendControler().inCrease();
-        Logs.d("event-->满足连续操作大于100,开始上传");
+
         if (TrackManager.getSendControler()!=null&&TrackManager.getSendControler().shouldSend()){
             //符合发送条件
             TrackPushService.getInstance().excutePushEvent();

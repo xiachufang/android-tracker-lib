@@ -54,7 +54,7 @@ public class TrackSendTask {
 
         if (list == null || list.size() == 0) {
             Logs.d("没有需要发送的统计数据");
-            EventDecorator.clearNum();
+            TrackManager.getSendControler().reset();
             TrackHttpManager.get().clearRequetWaitNum();
             return;
         }

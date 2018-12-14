@@ -7,6 +7,7 @@ import android.util.Log;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -40,7 +41,6 @@ public class TrackHttpManager {
     private static volatile TrackHttpManager volleyManager;
 
     private static final AtomicInteger waitNum = new AtomicInteger(0);
-    private int mTimeOutMilliSecs=3;
 
     public static RequestQueue statistics() {
         if (requestQueue == null) {
@@ -54,27 +54,20 @@ public class TrackHttpManager {
         public void onResponse(int id) {
             TrackDBManager.deleteEventByDataId(TrackManager.getContext(), id);
             TrackManager.getSendControler().deCrease();
-            Log.e("currentthread", "请求成功");
-            //是否存在被拒绝的任务，立即读取数据
             if (requestQueue.getCurrentQueueSize() == 0 && waitNum.get() > 0) {
                 waitNum.decrementAndGet();
                 TrackPushService.getInstance().excutePushEvent();
 
             }
-            Logs.d("refresh");
         }
 
         @Override
         public void onError(int id) {
             TrackManager.getSendControler().deCrease();
-            //是否存在被拒绝的任务，立即读取数据
             if (requestQueue.getCurrentQueueSize() == 0 && waitNum.get() > 0) {
                 waitNum.decrementAndGet();
                 TrackPushService.getInstance().excutePushEvent();
-                Log.e("currentthread", "曾有新数据被拒绝，重新入队");
             }
-            Logs.d("refresh");
-            Log.e("currentthread", "请求失败");
         }
     };
 
@@ -104,9 +97,6 @@ public class TrackHttpManager {
             requestQueue.add(request);
         }
     }
-
-
-
 
     public RequestQueue getRequestQueue() {
         return requestQueue;
@@ -141,15 +131,10 @@ public class TrackHttpManager {
     }
 
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
-        Log.e("requestTrackUrl", GlobalParams.DEVELOP_MODE+"---"+trackParamsMap.size());
         StaticRequest request;
-        if (GlobalParams.DEVELOP_MODE){
-            request  = new StaticRequest(StaticRequest.METHOD_GET,"http://123.207.150.253/testTrack.php?trackUrl="+ trackingUrl, trackParamsMap,id, callback);
-        }else {
-            request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap,id, callback);
-        }
-
+        request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap,id, callback);
         request.setShouldCache(false);
+        request.setRetryPolicy(new DefaultRetryPolicy());
         if (TrackManager.getHeadrConfig() != null) {
             return TrackManager.getHeadrConfig().getHeaders(request);
         }
@@ -163,12 +148,6 @@ public class TrackHttpManager {
     public synchronized void clearRequetWaitNum() {
         waitNum.set(0);
     }
-    private String buildUrl(String scheme, String host, String relatedUrl) {
-        Uri targetUri = new Uri.Builder()
-                .scheme(scheme)
-                .encodedAuthority(host)
-                .encodedPath(relatedUrl)
-                .build();
-        return targetUri.toString();
-    }
+
+
 }
