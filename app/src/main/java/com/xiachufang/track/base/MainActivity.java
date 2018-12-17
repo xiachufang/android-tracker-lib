@@ -27,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
         List<TrackData> trackData = AppDatabase.getInstance(this).trackDao().getAll();
         Log.e("trackdatatest",trackData.size()+"条");
         tvnum.setText("当前有"+trackData.size()+"条数据");
+        if (trackData.size()==0){
+            Log.e("testSendTime","sendend");
+        }
     }
 
     public void addData(View view) {
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 100000; i++) {
             Track.event("http://123.207.150.253/testTrack.php?trackUrl=http://www.tessfdst4.html");
         }
+        Log.e("testSendTime","sendstart");
     }
 }
