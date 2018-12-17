@@ -3,9 +3,19 @@ package com.xiachufang.track.base;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
+import android.view.View;
 
+import com.xiachufang.tracklib.controler.Track;
+import com.xiachufang.tracklib.db.TrackData;
+import com.xiachufang.tracklib.db.helper.AppDatabase;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -22,5 +32,21 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.xiachufang.track.base", appContext.getPackageName());
+
+    }
+
+
+    @Before
+    public void addData(){
+        for (int i = 0; i < 10000; i++) {
+            Track.event("http://123.207.150.253/testTrack.php?trackUrl=http://www.tessfdst4.html");
+        }
+        Log.e("testSendTime","sendstart");
+    }
+
+    @After
+    public void getData(){
+        List<TrackData> trackData = AppDatabase.getInstance(InstrumentationRegistry.getTargetContext()).trackDao().getAll();
+        Log.e("trackdatatest",trackData.size()+"条");
     }
 }
