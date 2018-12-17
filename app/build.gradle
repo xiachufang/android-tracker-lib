@@ -26,4 +26,36 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':track-base')
+
+
+    //junit
+    testImplementation 'junit:junit:4.12'
+    //mockito
+    testImplementation "org.mockito:mockito-core:2.8.9"
+    //powermock
+    testImplementation "org.powermock:powermock-module-junit4:1.7.3"
+    testImplementation "org.powermock:powermock-module-junit4-rule:1.7.3"
+    testImplementation "org.powermock:powermock-api-mockito2:1.7.3"
+    testImplementation "org.powermock:powermock-classloading-xstream:1.7.3"
+    //robolectric
+    testImplementation "org.robolectric:robolectric:3.8"
+    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+    testImplementation "com.android.support.test:monitor:1.0.2"
+    //mockwebserver
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.9.1'
+    //RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+    //RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //okhttp
+    implementation "com.squareup.okhttp3:okhttp:3.9.1"
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.3.0"){
+        exclude module: 'okhttp'
+    }
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:2.3.0"){
+        exclude module: 'rxjava'
+    }
+    //打印Log
+    implementation "com.elvishew:xlog:1.4.0"
 }
