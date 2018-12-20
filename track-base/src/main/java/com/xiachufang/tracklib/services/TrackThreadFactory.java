@@ -23,7 +23,6 @@ public class TrackThreadFactory implements ThreadFactory {
 
     public Thread newThread(Runnable runnable) {
         String threadName = namePrefix + threadNumber.getAndIncrement();
-//        ELogger.logWrite("JJ Event-->", "Thread production, name is [" + threadName + "]");
         Thread thread = new Thread(group, runnable, threadName, 0);
         if (thread.isDaemon()) {   //设为非后台线程
             thread.setDaemon(false);

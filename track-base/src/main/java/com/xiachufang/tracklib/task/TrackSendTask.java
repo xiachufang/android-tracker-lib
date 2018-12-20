@@ -53,7 +53,6 @@ public class TrackSendTask {
         //5.根据list大小创建一个int值计数器，对这个唯一队列计数，
 
         if (list == null || list.size() == 0) {
-            Logs.d("没有需要发送的统计数据");
             TrackManager.getSendControler().reset();
             TrackHttpManager.get().clearRequetWaitNum();
             return;

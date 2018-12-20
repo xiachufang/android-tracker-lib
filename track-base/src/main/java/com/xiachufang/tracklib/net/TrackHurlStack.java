@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public class TrackHurlStack extends HurlStack {
 
-
     @Override
     public HttpResponse executeRequest(Request<?> request, Map<String, String> additionalHeaders) throws IOException, AuthFailureError {
         IHttpManager httpManager = TrackManager.getHttpManager();
@@ -29,7 +28,5 @@ public class TrackHurlStack extends HurlStack {
             return super.executeRequest(request, additionalHeaders);
         }
     }
-
-
 
 }

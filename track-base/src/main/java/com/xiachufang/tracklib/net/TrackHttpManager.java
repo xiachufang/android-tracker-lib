@@ -2,26 +2,14 @@ package com.xiachufang.tracklib.net;
 
 import android.net.Uri;
 import android.util.ArrayMap;
-import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.xiachufang.tracklib.TrackManager;
 import com.xiachufang.tracklib.db.TrackDBManager;
 import com.xiachufang.tracklib.db.TrackData;
-import com.xiachufang.tracklib.model.EventDecorator;
-import com.xiachufang.tracklib.model.ResultBean;
 import com.xiachufang.tracklib.services.TrackPushService;
-import com.xiachufang.tracklib.util.GlobalParams;
-import com.xiachufang.tracklib.util.Logs;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

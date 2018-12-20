@@ -75,7 +75,6 @@ public class TrackPushService {
                     buffer.append(trackData.get(i).getTrackData()).append("-timestamp-").append(trackData.get(i).getTimeStamp()).append("\n");
                 }
             }
-            Log.e("debug-statistic",buffer.toString());
         }
     }
 

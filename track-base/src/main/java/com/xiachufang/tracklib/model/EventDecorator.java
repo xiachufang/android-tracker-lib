@@ -25,10 +25,6 @@ public class EventDecorator {
         return System.currentTimeMillis();
     }
 
-    public static synchronized void clearNum() {
-        TrackManager.getSendControler().reset();
-    }
-
     /**
      * 将传入参数打包封装成需要传送的格式
      *

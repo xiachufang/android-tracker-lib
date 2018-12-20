@@ -13,8 +13,6 @@ import java.util.List;
  * creator huangyong
  * createTime 2018/11/27 下午2:13
  * path com.xiachufang.tracklib.db.dao
- * description:tag=0为默认状态，1为正在发送，2为发送失败
- * 每次都只取0和2的数据发送，取的同时改状态为1，。暂定取100条
  */
 @Dao
 public interface TrackDao {
@@ -27,10 +25,10 @@ public interface TrackDao {
     List<TrackData> getTrackDataById(int trackId);
 
     @Insert
-    public void insert(TrackData trackData);
+    void insert(TrackData trackData);
 
     @Delete
-    public void delete(TrackData trackData);
+    void delete(TrackData trackData);
 
     @Query("SELECT * FROM T_TRACK")
     List<TrackData> getAll();

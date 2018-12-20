@@ -34,19 +34,4 @@ public class ExampleInstrumentedTest {
         assertEquals("com.xiachufang.track.base", appContext.getPackageName());
 
     }
-
-
-    @Before
-    public void addData(){
-        for (int i = 0; i < 10000; i++) {
-            Track.event("http://123.207.150.253/testTrack.php?trackUrl=http://www.tessfdst4.html");
-        }
-        Log.e("testSendTime","sendstart");
-    }
-
-    @After
-    public void getData(){
-        List<TrackData> trackData = AppDatabase.getInstance(InstrumentationRegistry.getTargetContext()).trackDao().getAll();
-        Log.e("trackdatatest",trackData.size()+"条");
-    }
 }

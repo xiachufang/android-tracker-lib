@@ -144,8 +144,6 @@ public final class TrackManager {
 
         private boolean DEVELOP_MODE = GlobalParams.DEVELOP_MODE;
 
-        private boolean INNER_SEND = GlobalParams.INNER_SEND;
-
         private int PUSH_CUT_NUMBER = GlobalParams.PUSH_CUT_NUMBER;
 
         private double PUSH_CUT_DATE = GlobalParams.PUSH_CUT_TIMER_INTERVAL;

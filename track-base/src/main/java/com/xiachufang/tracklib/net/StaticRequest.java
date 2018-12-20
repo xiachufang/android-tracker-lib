@@ -10,7 +10,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.google.gson.Gson;
 import com.xiachufang.tracklib.TrackManager;
 
 import java.util.HashMap;

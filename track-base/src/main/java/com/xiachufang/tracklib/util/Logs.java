@@ -1,9 +1,5 @@
 package com.xiachufang.tracklib.util;
 
-import android.content.Intent;
-
-import com.xiachufang.tracklib.TrackManager;
-
 
 /**
  * creator huangyong
@@ -14,12 +10,9 @@ import com.xiachufang.tracklib.TrackManager;
 public class Logs {
 
 
-    public static void d(String p){
+    public static void d(String debug){
         if (GlobalParams.DEVELOP_MODE){
-            android.util.Log.d(GlobalParams.TAG,p);
-            Intent intent = new Intent();
-            intent.setAction(GlobalParams.ACTION_LOG);
-            TrackManager.getContext().sendBroadcast(intent);
+            android.util.Log.d(GlobalParams.TAG,debug);
         }
     }
 }

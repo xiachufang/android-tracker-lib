@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addData(View view) {
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 100; i++) {
             Track.event("http://123.207.150.253/testTrack.php?trackUrl=http://www.tessfdst4.html");
         }
         Log.e("testSendTime","sendstart");
