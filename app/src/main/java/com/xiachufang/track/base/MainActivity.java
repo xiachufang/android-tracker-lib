@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getAlldata(View view) {
         List<TrackData> trackData = AppDatabase.getInstance(this).trackDao().getAll();
-        Log.e("trackdatatest",trackData.size()+"条");
+         Log.e("trackdatatest",trackData.size()+"条");
         tvnum.setText("当前有"+trackData.size()+"条数据");
         if (trackData.size()==0){
             Log.e("testSendTime","sendend");
