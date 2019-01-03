@@ -1,12 +1,8 @@
-package com.xiachufang.tracklib.model;
+package com.xiachufang.tracklib;
 
 import com.xiachufang.tracklib.TrackManager;
 import com.xiachufang.tracklib.db.TrackData;
-import com.xiachufang.tracklib.services.TrackPushService;
-import com.xiachufang.tracklib.util.GlobalParams;
-import com.xiachufang.tracklib.util.Logs;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import com.xiachufang.tracklib.TrackPushService;
 
 /**
  * creator huangyong

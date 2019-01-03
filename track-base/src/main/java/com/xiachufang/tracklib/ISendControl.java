@@ -1,4 +1,4 @@
-package com.xiachufang.tracklib.model;
+package com.xiachufang.tracklib;
 
 /**
  * creator huangyong

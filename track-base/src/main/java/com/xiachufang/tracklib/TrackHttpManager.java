@@ -1,4 +1,4 @@
-package com.xiachufang.tracklib.net;
+package com.xiachufang.tracklib;
 
 import android.net.Uri;
 import android.util.ArrayMap;
@@ -6,10 +6,9 @@ import android.util.ArrayMap;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.xiachufang.tracklib.TrackManager;
 import com.xiachufang.tracklib.db.TrackDBManager;
 import com.xiachufang.tracklib.db.TrackData;
-import com.xiachufang.tracklib.services.TrackPushService;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * path com.xiachufang.tracklib.net
  * description:
  */
-public class TrackHttpManager {
+class TrackHttpManager {
 
 
     private static volatile RequestQueue requestQueue;

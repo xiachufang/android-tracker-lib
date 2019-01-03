@@ -1,6 +1,5 @@
-package com.xiachufang.tracklib.net;
+package com.xiachufang.tracklib;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -10,7 +9,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.xiachufang.tracklib.TrackManager;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.xiachufang.tracklib.model;
+package com.xiachufang.tracklib;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

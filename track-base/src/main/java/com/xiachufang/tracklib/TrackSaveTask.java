@@ -1,11 +1,9 @@
-package com.xiachufang.tracklib.task;
+package com.xiachufang.tracklib;
 
 import android.text.TextUtils;
 
-import com.xiachufang.tracklib.TrackManager;
 import com.xiachufang.tracklib.db.TrackDBManager;
 import com.xiachufang.tracklib.db.TrackData;
-import com.xiachufang.tracklib.model.EventDecorator;
 import com.xiachufang.tracklib.util.GlobalParams;
 
 

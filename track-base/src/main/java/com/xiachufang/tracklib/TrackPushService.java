@@ -1,11 +1,7 @@
-package com.xiachufang.tracklib.services;
+package com.xiachufang.tracklib;
 
-import android.util.Log;
-
-import com.xiachufang.tracklib.TrackManager;
 import com.xiachufang.tracklib.db.TrackData;
 import com.xiachufang.tracklib.db.helper.AppDatabase;
-import com.xiachufang.tracklib.task.TrackSendTask;
 import com.xiachufang.tracklib.util.GlobalParams;
 
 import java.util.List;

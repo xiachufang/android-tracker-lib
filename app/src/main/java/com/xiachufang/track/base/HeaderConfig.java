@@ -1,8 +1,8 @@
 package com.xiachufang.track.base;
 
 
-import com.xiachufang.tracklib.net.IHeaderConfig;
-import com.xiachufang.tracklib.net.StaticRequest;
+import com.xiachufang.tracklib.IHeaderConfig;
+import com.xiachufang.tracklib.StaticRequest;
 
 /**
  * creator huangyong

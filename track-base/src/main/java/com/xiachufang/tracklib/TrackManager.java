@@ -6,11 +6,6 @@ import android.os.Process;
 import android.util.Log;
 
 import com.xiachufang.tracklib.exception.EventException;
-import com.xiachufang.tracklib.model.ISendControl;
-import com.xiachufang.tracklib.model.SendControler;
-import com.xiachufang.tracklib.net.IHeaderConfig;
-import com.xiachufang.tracklib.net.IHttpManager;
-import com.xiachufang.tracklib.services.TrackPushService;
 import com.xiachufang.tracklib.util.DeviceUtils;
 import com.xiachufang.tracklib.util.GlobalParams;
 

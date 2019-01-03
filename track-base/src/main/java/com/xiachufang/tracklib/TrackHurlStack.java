@@ -1,10 +1,9 @@
-package com.xiachufang.tracklib.net;
+package com.xiachufang.tracklib;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.HttpResponse;
 import com.android.volley.toolbox.HurlStack;
-import com.xiachufang.tracklib.TrackManager;
 
 import java.io.IOException;
 import java.util.Map;
