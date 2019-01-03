@@ -10,9 +10,6 @@ public class GlobalParams {
 
     public static final String TAG = "reportTrack";
 
-
-    //是否启用内部发送逻辑，默认开启
-    public static boolean INNER_SEND = true;
     /**
      * 记录到达xx条,主动进行上传,默认100
      */
@@ -28,7 +25,5 @@ public class GlobalParams {
     public static boolean DEVELOP_MODE = true;
     //开启一切统计逻辑
     public static boolean SWITCH_ON = true;
-
-    public static final String ACTION_LOG = "com.tracklib.log";
 
 }

@@ -1,5 +1,7 @@
 package com.xiachufang.tracklib;
 
+import com.xiachufang.tracklib.util.GlobalParams;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -16,7 +18,7 @@ public class SendControler implements ISendControl{
     @Override
     public boolean shouldSend() {
 
-        if (eventNum.get()>=100){
+        if (eventNum.get()>= GlobalParams.PUSH_CUT_NUMBER){
             return true;
         }else {
             return false;
