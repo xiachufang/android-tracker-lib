@@ -25,7 +25,7 @@ android {
 // JitPack Maven
 apply plugin: 'com.github.dcendents.android-maven'
 // Your Group
-group='com.github.hiliving'
+group='com.github.xiachufang'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
