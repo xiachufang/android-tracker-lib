@@ -119,6 +119,7 @@ class TrackHttpManager {
 
     private StaticRequest buildRequest(String trackingUrl, Map trackParamsMap, int id, IHttpManager.Callback callback) {
         StaticRequest request;
+        trackingUrl+="&id="+id;
         request = new StaticRequest(StaticRequest.METHOD_GET, trackingUrl, trackParamsMap,id, callback);
         request.setShouldCache(false);
         request.setRetryPolicy(new DefaultRetryPolicy());
